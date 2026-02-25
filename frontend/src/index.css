@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Warm bakery palette - light mode */
+    --background: 0.97 0.015 75;
+    --foreground: 0.22 0.04 55;
+
+    --card: 0.99 0.008 80;
+    --card-foreground: 0.22 0.04 55;
+
+    --popover: 0.99 0.008 80;
+    --popover-foreground: 0.22 0.04 55;
+
+    --primary: 0.38 0.09 48;
+    --primary-foreground: 0.97 0.015 75;
+
+    --secondary: 0.92 0.03 72;
+    --secondary-foreground: 0.32 0.07 50;
+
+    --muted: 0.93 0.02 70;
+    --muted-foreground: 0.52 0.04 55;
+
+    --accent: 0.72 0.12 52;
+    --accent-foreground: 0.99 0.005 80;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.87 0.03 68;
+    --input: 0.87 0.03 68;
+    --ring: 0.55 0.09 50;
+
+    /* Bakery-specific tokens */
+    --cream: 0.97 0.015 75;
+    --warm-tan: 0.88 0.04 72;
+    --caramel: 0.72 0.12 52;
+    --brown: 0.38 0.09 48;
+    --deep-brown: 0.22 0.04 55;
+    --terracotta: 0.62 0.14 38;
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    --sidebar: 0.95 0.02 72;
+    --sidebar-foreground: 0.22 0.04 55;
+    --sidebar-primary: 0.38 0.09 48;
+    --sidebar-primary-foreground: 0.97 0.015 75;
+    --sidebar-accent: 0.88 0.04 72;
+    --sidebar-accent-foreground: 0.32 0.07 50;
+    --sidebar-border: 0.87 0.03 68;
+    --sidebar-ring: 0.55 0.09 50;
+  }
+
+  .dark {
+    --background: 0.18 0.04 50;
+    --foreground: 0.95 0.015 75;
+
+    --card: 0.22 0.04 50;
+    --card-foreground: 0.95 0.015 75;
+
+    --popover: 0.25 0.04 50;
+    --popover-foreground: 0.95 0.015 75;
+
+    --primary: 0.78 0.1 58;
+    --primary-foreground: 0.18 0.04 50;
+
+    --secondary: 0.28 0.05 50;
+    --secondary-foreground: 0.92 0.02 72;
+
+    --muted: 0.28 0.04 50;
+    --muted-foreground: 0.65 0.04 60;
+
+    --accent: 0.72 0.12 52;
+    --accent-foreground: 0.18 0.04 50;
+
+    --destructive: 0.704 0.191 22.216;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 1 0 0 / 12%;
+    --input: 1 0 0 / 15%;
+    --ring: 0.65 0.08 55;
+
+    --sidebar: 0.22 0.04 50;
+    --sidebar-foreground: 0.95 0.015 75;
+    --sidebar-primary: 0.78 0.1 58;
+    --sidebar-primary-foreground: 0.18 0.04 50;
+    --sidebar-accent: 0.28 0.05 50;
+    --sidebar-accent-foreground: 0.92 0.02 72;
+    --sidebar-border: 1 0 0 / 12%;
+    --sidebar-ring: 0.65 0.08 55;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .font-script {
+    font-family: 'Dancing Script', cursive;
+  }
+}

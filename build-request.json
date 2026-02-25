@@ -1,0 +1,202 @@
+{
+  "kind": "build_request",
+  "title": "Bakery Website with Menu, Admin Panel, and Rewards Program",
+  "projectName": "Sweet Crumbs Bakery",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Design a warm, artisan bakery visual theme with a color palette inspired by baked goods (creams, warm tans, deep browns, soft terracotta), handcrafted-style typography, and a cozy layout. Apply the theme consistently across all pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All pages share a consistent color palette of warm bakery tones (creams, tans, browns, terracotta)",
+        "Typography evokes a handcrafted, artisan feel",
+        "Layout feels cozy and inviting throughout"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create a public-facing bakery homepage with a hero section, a navigation bar linking to the Menu and Rewards pages, and a brief bakery description.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Homepage displays a hero section with bakery name and tagline",
+        "Navigation links to Menu and Rewards pages",
+        "Brief bakery description is visible on the homepage"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement a backend data model for menu items. Each item must have: a unique ID, name, description, price, category (e.g., breads, pastries, cakes, drinks), available status, and an image URL field.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Menu item record includes id, name, description, price, category, isAvailable, and imageUrl fields",
+        "Items can be created, read, updated, and deleted via backend functions",
+        "Items are persisted in stable storage"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Build a public Menu page that displays all available menu items grouped by category. Each item shows its name, description, and price.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Menu page is accessible at a /menu route",
+        "Items are grouped by category with clear section headers",
+        "Each item card shows name, description, and formatted price",
+        "Only items marked as available are shown to the public"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement Internet Identity-based admin authentication. A designated admin principal (configurable in the backend) gains access to an admin panel. Non-admin users see only the public site.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin logs in via Internet Identity",
+        "Backend validates the caller's principal against a stored admin principal",
+        "Admin panel route is inaccessible to non-admin users",
+        "Admin can be set as the canister deployer's principal by default"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Build an Admin Panel page where the admin can add new menu items, edit existing items (name, description, price, category, availability, image URL), and remove items from the menu. Changes take effect immediately on the public menu.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin panel lists all menu items with edit and delete buttons",
+        "Admin can add a new item via a form with all required fields",
+        "Admin can edit any field of an existing item",
+        "Admin can toggle an item's availability",
+        "Admin can delete an item",
+        "All changes are persisted in the backend and reflected immediately on the public menu"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Implement a backend rewards program. Track each customer (by Internet Identity principal) and the number of items they have purchased. Every 5 items purchased earns 1 free treat reward. Store: customer principal, total items purchased, redeemable free treats count.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Customer rewards record includes principal, totalItemsPurchased, and freeTreeatsAvailable fields",
+        "Backend function to record a purchase increments totalItemsPurchased",
+        "For every 5 items purchased, freeTreeatsAvailable increments by 1",
+        "Backend function to redeem a free treat decrements freeTreeatsAvailable (minimum 0)",
+        "All rewards data is persisted in stable storage"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Build a public Rewards page where logged-in customers can view their rewards status: total items purchased, number of free treats available, and how many more items until the next free treat. Include a button to log in with Internet Identity if not authenticated.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Rewards page is accessible at a /rewards route",
+        "Unauthenticated users see a prompt to log in with Internet Identity",
+        "Authenticated users see their total items purchased count",
+        "Authenticated users see how many free treats they have available",
+        "A progress indicator shows how many more items are needed to earn the next free treat (e.g., 3 more items to go)"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add an admin section in the Admin Panel to configure the rewards program rule: the number of items required per free treat (default: 5). Also allow the admin to look up any customer by principal and manually adjust their rewards balance.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin can view and update the 'items per free treat' threshold (default 5)",
+        "Changes to the threshold apply to future reward calculations",
+        "Admin can search a customer by principal and view their rewards record",
+        "Admin can manually add or subtract free treats for a customer"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add a simple 'Record Purchase' flow for the admin panel: the admin can select a customer principal and the number of items purchased in a transaction, and submit it to update the customer's rewards balance.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin panel has a 'Record Purchase' form with a principal input and item count input",
+        "Submitting the form calls the backend to update that customer's rewards",
+        "Success confirmation is shown after recording a purchase"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Generate and use a set of static bakery-themed images: a hero banner and a logo/icon for the site header.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hero banner image is displayed on the homepage hero section",
+        "Logo/icon appears in the navigation bar",
+        "Images are served from frontend/public/assets/generated"
+      ]
+    }
+  ],
+  "constraints": [
+    "Admin authentication must use Internet Identity only — no external auth providers",
+    "All backend logic must remain in a single Motoko actor in backend/main.mo",
+    "Do not edit any files under frontend/src/hooks/ or frontend/src/components/ui"
+  ],
+  "nonGoals": [
+    "Online ordering or payment processing",
+    "Email or SMS notifications",
+    "Customer self-registration outside of Internet Identity login",
+    "Real-time inventory tracking or stock counts",
+    "Multiple admin roles or granular permissions"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Warm artisan bakery hero banner with freshly baked breads, pastries, and golden light atmosphere, rustic wooden table surface (bakery-hero-banner.dim_1400x500.png)",
+      "Circular bakery logo illustration featuring a wheat stalk and a small croissant, warm brown and cream tones (bakery-logo.dim_128x128.png)"
+    ],
+    "edits": []
+  }
+}

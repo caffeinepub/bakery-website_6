@@ -1,0 +1,274 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Bakery Website with Menu, Admin Panel, and Rewards Program - Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Apply warm artisan bakery visual theme with color palette, typography, and cozy layout across all pages",
+      "acceptanceCriteria": [
+        "All pages share a consistent color palette of warm bakery tones (creams, tans, browns, terracotta)",
+        "Typography evokes a handcrafted, artisan feel",
+        "Layout feels cozy and inviting throughout"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define warm bakery color palette CSS custom properties (cream, warm tan, deep brown, soft terracotta) and apply handcrafted-style typography with a cozy, inviting base style"
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with bakery color palette (cream, tan, brown, terracotta) and custom font families for artisan typography"
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create public-facing bakery homepage with hero section, navigation bar, and bakery description",
+      "acceptanceCriteria": [
+        "Homepage displays a hero section with bakery name and tagline",
+        "Navigation links to Menu and Rewards pages",
+        "Brief bakery description is visible on the homepage"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "create",
+          "description": "Create homepage with hero section featuring the generated bakery-hero-banner.dim_1400x500.png from frontend/public/assets/generated/bakery-hero-banner.dim_1400x500.png, navigation bar with links to Menu and Rewards pages, and a brief bakery description section"
+        },
+        {
+          "path": "frontend/src/components/layout/Navigation.tsx",
+          "operation": "create",
+          "description": "Create navigation bar component with logo using frontend/public/assets/generated/bakery-logo.dim_128x128.png and links to Home, Menu, and Rewards pages, plus login/logout button"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire HomePage as the default route at '/' and include Navigation component in the app layout"
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Build public Menu page displaying available menu items grouped by category with name, description, and price",
+      "acceptanceCriteria": [
+        "Menu page is accessible at a /menu route",
+        "Items are grouped by category with clear section headers",
+        "Each item card shows name, description, and formatted price",
+        "Only items marked as available are shown to the public"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/MenuPage.tsx",
+          "operation": "create",
+          "description": "Create public menu page that fetches menu items via getMenuItems backend method, filters for available items only, groups by category (breads, pastries, cakes, drinks), and displays each item with name, description, and formatted price"
+        },
+        {
+          "path": "frontend/src/hooks/useMenuItems.ts",
+          "operation": "create",
+          "description": "Create React Query hook to fetch menu items from backend getMenuItems method with proper caching and error handling"
+        },
+        {
+          "path": "frontend/src/components/menu/MenuItemCard.tsx",
+          "operation": "create",
+          "description": "Create menu item card component displaying item name, description, price (formatted as currency), and image if available"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register MenuPage at /menu route in the router configuration"
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement Internet Identity-based admin authentication with role-based access control",
+      "acceptanceCriteria": [
+        "Admin logs in via Internet Identity",
+        "Backend validates the caller's principal against a stored admin principal",
+        "Admin panel route is inaccessible to non-admin users",
+        "Admin can be set as the canister deployer's principal by default"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Use the authorization component to create login/logout button with Internet Identity integration following the component's usage instructions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Use the authorization component to create hooks for getCallerUserProfile and saveCallerUserProfile following the component's usage instructions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Use the authorization component to create modal for first-time user profile setup (name entry) following the component's usage instructions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdminCheck.ts",
+          "operation": "create",
+          "description": "Create React Query hook to check if current user is admin via isCallerAdmin backend method"
+        },
+        {
+          "path": "frontend/src/components/auth/AdminGuard.tsx",
+          "operation": "create",
+          "description": "Create admin guard wrapper component that checks admin status and redirects non-admin users to homepage, showing appropriate unauthorized message"
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Build Admin Panel page for managing menu items with add, edit, delete, and availability toggle capabilities",
+      "acceptanceCriteria": [
+        "Admin panel lists all menu items with edit and delete buttons",
+        "Admin can add a new item via a form with all required fields",
+        "Admin can edit any field of an existing item",
+        "Admin can toggle an item's availability",
+        "Admin can delete an item",
+        "All changes are persisted in the backend and reflected immediately on the public menu"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AdminPanelPage.tsx",
+          "operation": "create",
+          "description": "Create admin panel page wrapped with AdminGuard, displaying menu management section and rewards management section in tabs or sections"
+        },
+        {
+          "path": "frontend/src/components/admin/MenuManagement.tsx",
+          "operation": "create",
+          "description": "Create menu management component showing table/list of all menu items with edit and delete actions, plus button to open add item form"
+        },
+        {
+          "path": "frontend/src/components/admin/MenuItemForm.tsx",
+          "operation": "create",
+          "description": "Create form component for adding/editing menu items with fields for name, description, price, category dropdown, availability toggle, and imageUrl input. Calls addMenuItem or updateMenuItem backend methods."
+        },
+        {
+          "path": "frontend/src/hooks/useMenuMutations.ts",
+          "operation": "create",
+          "description": "Create React Query mutations for addMenuItem, updateMenuItem, and removeMenuItem backend methods with query invalidation to refresh menu data"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register AdminPanelPage at /admin route in the router configuration"
+        },
+        {
+          "path": "frontend/src/components/layout/Navigation.tsx",
+          "operation": "modify",
+          "description": "Add conditional Admin link in navigation bar visible only when user is authenticated and isAdmin"
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Build public Rewards page showing logged-in customer's rewards status and progress to next free treat",
+      "acceptanceCriteria": [
+        "Rewards page is accessible at a /rewards route",
+        "Unauthenticated users see a prompt to log in with Internet Identity",
+        "Authenticated users see their total items purchased count",
+        "Authenticated users see how many free treats they have available",
+        "A progress indicator shows how many more items are needed to earn the next free treat (e.g., 3 more items to go)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RewardsPage.tsx",
+          "operation": "create",
+          "description": "Create rewards page that shows login prompt for unauthenticated users, or displays customer rewards status (items purchased, free treats available, progress to next reward) for authenticated users via getCustomerRewards backend method"
+        },
+        {
+          "path": "frontend/src/hooks/useCustomerRewards.ts",
+          "operation": "create",
+          "description": "Create React Query hook to fetch customer rewards data via getCustomerRewards backend method, with mutation for claimFreeTreat"
+        },
+        {
+          "path": "frontend/src/components/rewards/RewardsStatus.tsx",
+          "operation": "create",
+          "description": "Create component displaying customer rewards statistics with progress bar showing items until next free treat based on rewards config"
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register RewardsPage at /rewards route in the router configuration"
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add admin section to configure rewards program rule and manually adjust customer rewards",
+      "acceptanceCriteria": [
+        "Admin can view and update the 'items per free treat' threshold (default 5)",
+        "Changes to the threshold apply to future reward calculations",
+        "Admin can search a customer by principal and view their rewards record",
+        "Admin can manually add or subtract free treats for a customer"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/RewardsManagement.tsx",
+          "operation": "create",
+          "description": "Create rewards management component for admin panel with form to update rewards config (items per free treat) via updateRewardsConfig, and customer lookup/adjustment form using getCustomerRewardsByPrincipal and adjustCustomerRewards backend methods"
+        },
+        {
+          "path": "frontend/src/hooks/useRewardsConfig.ts",
+          "operation": "create",
+          "description": "Create React Query hook to fetch rewards config via getRewardsConfig backend method with mutation for updateRewardsConfig"
+        },
+        {
+          "path": "frontend/src/hooks/useCustomerRewardsMutations.ts",
+          "operation": "create",
+          "description": "Create React Query mutations for adjustCustomerRewards and recordPurchase backend methods"
+        },
+        {
+          "path": "frontend/src/pages/AdminPanelPage.tsx",
+          "operation": "modify",
+          "description": "Integrate RewardsManagement component into admin panel layout alongside MenuManagement"
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add 'Record Purchase' flow in admin panel to update customer rewards balance",
+      "acceptanceCriteria": [
+        "Admin panel has a 'Record Purchase' form with a principal input and item count input",
+        "Submitting the form calls the backend to update that customer's rewards",
+        "Success confirmation is shown after recording a purchase"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/admin/RecordPurchaseForm.tsx",
+          "operation": "create",
+          "description": "Create form component with principal text input and item count number input, calling recordPurchase backend method on submit with success/error feedback"
+        },
+        {
+          "path": "frontend/src/components/admin/RewardsManagement.tsx",
+          "operation": "modify",
+          "description": "Integrate RecordPurchaseForm component into the rewards management section of the admin panel"
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Wire generated bakery-themed images into site header and homepage hero",
+      "acceptanceCriteria": [
+        "Hero banner image is displayed on the homepage hero section",
+        "Logo/icon appears in the navigation bar",
+        "Images are served from frontend/public/assets/generated"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Reference hero banner image from frontend/public/assets/generated/bakery-hero-banner.dim_1400x500.png in the hero section background or img element"
+        },
+        {
+          "path": "frontend/src/components/layout/Navigation.tsx",
+          "operation": "modify",
+          "description": "Reference logo image from frontend/public/assets/generated/bakery-logo.dim_128x128.png in the navigation bar header"
+        }
+      ]
+    }
+  ]
+}

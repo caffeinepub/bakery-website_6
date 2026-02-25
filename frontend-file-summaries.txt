@@ -1,0 +1,19 @@
+{
+  "frontend/src/index.css": "Global styles with warm bakery OKLCH color palette (cream, tan, caramel, brown, terracotta), imports Playfair Display, Lato, and Dancing Script fonts, and defines light/dark mode CSS custom properties.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with bakery color tokens, custom font families (display/body/script), warm box shadows, and fade-in animation keyframes.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks and mutations for the bakery backend — user profiles, admin check, menu items (CRUD), rewards config, customer rewards, purchase recording, and adjustments.",
+  "frontend/src/App.tsx": "Root app component with TanStack Router (Home, Menu, Rewards, Admin routes), ThemeProvider, Layout shell with Navigation/Footer, and Sonner Toaster.",
+  "frontend/src/components/layout/Navigation.tsx": "Sticky navigation bar with bakery logo, nav links (Home/Menu/Rewards/Admin), responsive mobile menu, and login/logout button using Internet Identity.",
+  "frontend/src/components/layout/Footer.tsx": "Site footer with bakery info, hours, rewards blurb, copyright year, and caffeine.ai attribution link with UTM params.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup (name entry) that appears after login when no profile exists.",
+  "frontend/src/components/menu/MenuItemCard.tsx": "Card component displaying a menu item's image, category badge, name, description, and formatted price.",
+  "frontend/src/components/admin/MenuItemForm.tsx": "Form for adding or editing menu items with fields for name, description, price, category, availability toggle, and image URL.",
+  "frontend/src/components/admin/MenuManagement.tsx": "Admin component listing all menu items with edit/delete actions and add button; fixed `flex-shrink-0` → `shrink-0` to comply with Tailwind v3.",
+  "frontend/src/components/admin/RecordPurchaseForm.tsx": "Admin form to record a customer purchase by principal ID and item count; fixed conflicting `font-body font-mono` by using only `font-mono` on the principal input.",
+  "frontend/src/components/admin/RewardsManagement.tsx": "Admin section for rewards config, purchase recording, and customer lookup/adjustment; fixed conflicting `font-body font-mono` by using only `font-mono` on principal inputs.",
+  "frontend/src/components/rewards/RewardsStatus.tsx": "Customer-facing rewards dashboard showing items purchased, free treats available, progress bar to next treat, and a claim button.",
+  "frontend/src/pages/HomePage.tsx": "Public homepage with hero banner image, tagline, feature highlights, and CTA buttons linking to Menu and Rewards pages.",
+  "frontend/src/pages/MenuPage.tsx": "Public menu page fetching all available items, grouping them by category (breads/pastries/cakes/drinks), and rendering MenuItemCard grids with section headers.",
+  "frontend/src/pages/RewardsPage.tsx": "Public rewards page showing a login prompt for unauthenticated users or the full RewardsStatus component for logged-in customers.",
+  "frontend/src/pages/AdminPanelPage.tsx": "Admin panel page with access control (login/admin checks), tabbed interface for Menu Management and Rewards Management, and profile setup modal."
+}

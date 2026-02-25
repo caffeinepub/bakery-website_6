@@ -1,0 +1,199 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-design-a-warm-artisan-bakery-visual-theme-with-a-color-palette-inspired-by-baked-goods-creams-warm-tans-deep-browns-soft-terracotta-handcrafted-style-typography-and-a-cozy-layout-apply-the-theme-consistently-across-all-pages",
+      "featureTitle": "Design a warm, artisan bakery visual theme with a color palette inspired by baked goods (creams, warm tans, deep browns, soft terracotta), handcrafted-style typography, and a cozy layout. Apply the theme consistently across all pages.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-public-facing-bakery-homepage-with-a-hero-section-a-navigation-bar-linking-to-the-menu-and-rewards-pages-and-a-brief-bakery-description",
+      "featureTitle": "Create a public-facing bakery homepage with a hero section, a navigation bar linking to the Menu and Rewards pages, and a brief bakery description.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/Navigation.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-public-menu-page-that-displays-all-available-menu-items-grouped-by-category-each-item-shows-its-name-description-and-price",
+      "featureTitle": "Build a public Menu page that displays all available menu items grouped by category. Each item shows its name, description, and price.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/menu/MenuItemCard.tsx",
+        "frontend/src/pages/MenuPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-internet-identity-based-admin-authentication-a-designated-admin-principal-configurable-in-the-backend-gains-access-to-an-admin-panel-non-admin-users-see-only-the-public-site",
+      "featureTitle": "Implement Internet Identity-based admin authentication. A designated admin principal (configurable in the backend) gains access to an admin panel. Non-admin users see only the public site.",
+      "files": [
+        "frontend/src/components/auth/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-an-admin-panel-page-where-the-admin-can-add-new-menu-items-edit-existing-items-name-description-price-category-availability-image-url-and-remove-items-from-the-menu-changes-take-effect-immediately-on-the-public-menu",
+      "featureTitle": "Build an Admin Panel page where the admin can add new menu items, edit existing items (name, description, price, category, availability, image URL), and remove items from the menu. Changes take effect immediately on the public menu.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/admin/MenuItemForm.tsx",
+        "frontend/src/components/admin/MenuManagement.tsx",
+        "frontend/src/components/layout/Navigation.tsx",
+        "frontend/src/pages/AdminPanelPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-public-rewards-page-where-logged-in-customers-can-view-their-rewards-status-total-items-purchased-number-of-free-treats-available-and-how-many-more-items-until-the-next-free-treat-include-a-button-to-log-in-with-internet-identity-if-not-authenticated",
+      "featureTitle": "Build a public Rewards page where logged-in customers can view their rewards status: total items purchased, number of free treats available, and how many more items until the next free treat. Include a button to log in with Internet Identity if not authenticated.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/rewards/RewardsStatus.tsx",
+        "frontend/src/pages/RewardsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-admin-section-in-the-admin-panel-to-configure-the-rewards-program-rule-the-number-of-items-required-per-free-treat-default-5-also-allow-the-admin-to-look-up-any-customer-by-principal-and-manually-adjust-their-rewards-balance",
+      "featureTitle": "Add an admin section in the Admin Panel to configure the rewards program rule: the number of items required per free treat (default: 5). Also allow the admin to look up any customer by principal and manually adjust their rewards balance.",
+      "files": [
+        "frontend/src/components/admin/RewardsManagement.tsx",
+        "frontend/src/pages/AdminPanelPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-simple-record-purchase-flow-for-the-admin-panel-the-admin-can-select-a-customer-principal-and-the-number-of-items-purchased-in-a-transaction-and-submit-it-to-update-the-customer-s-rewards-balance",
+      "featureTitle": "Add a simple 'Record Purchase' flow for the admin panel: the admin can select a customer principal and the number of items purchased in a transaction, and submit it to update the customer's rewards balance.",
+      "files": [
+        "frontend/src/components/admin/RecordPurchaseForm.tsx",
+        "frontend/src/components/admin/RewardsManagement.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-and-use-a-set-of-static-bakery-themed-images-a-hero-banner-and-a-logo-icon-for-the-site-header",
+      "featureTitle": "Generate and use a set of static bakery-themed images: a hero banner and a logo/icon for the site header.",
+      "files": [
+        "frontend/src/components/layout/Navigation.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

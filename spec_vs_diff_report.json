@@ -1,0 +1,96 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-25T19:46:42.276Z",
+  "summary": "The diff implements the vast majority of requirements for the bakery website. Backend (backend/main.mo) covers menu CRUD, rewards tracking, rewards config, admin authentication via Internet Identity, and purchase recording. Frontend covers homepage, menu page, rewards page, admin panel, navigation, and theming. A few specific acceptance criteria details appear to have gaps.",
+  "missing_requirements": [
+    {
+      "requirement": "Items are persisted in stable storage (REQ-3 AC)",
+      "reason": "The backend uses Map.empty which in standard Motoko is not stable storage unless declared with 'stable var'. The diff shows 'let menuItems = Map.empty<Nat, MenuItem>()' and 'let customerRewards = Map.empty<Principal, CustomerRewards>()' without any 'stable' keyword, suggesting these may not survive canister upgrades.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "requirement": "All rewards data is persisted in stable storage (REQ-7 AC)",
+      "reason": "Same issue as REQ-3: customerRewards uses Map.empty without stable declaration visible in the truncated diff.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "Images are served from frontend/public/assets/generated",
+      "reason": "The diff references image paths like '/assets/generated/bakery-hero-banner.dim_1400x500.png' and '/assets/generated/bakery-logo.dim_128x128.png' in the code, but no actual image files appear in the added files list. The diff summary states 7 files were omitted due to limits, so the images may exist but cannot be confirmed from the provided diff.",
+      "evidence": [
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/components/layout/Navigation.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Profile Setup Modal requiring users to enter their name on first login",
+      "reason": "The build request does not mention a user profile setup flow or name collection. A UserProfile type and ProfileSetupModal are implemented, including saveCallerUserProfile and getCallerUserProfile backend functions, none of which were requested.",
+      "evidence": [
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "backend/main.mo",
+        "frontend/src/pages/AdminPanelPage.tsx",
+        "frontend/src/pages/RewardsPage.tsx"
+      ]
+    },
+    {
+      "description": "User profile name displayed in admin panel and rewards page",
+      "reason": "The build request does not include any user profile or name storage feature. The rewards and admin pages use userProfile.name to greet the user, which is not part of any stated requirement.",
+      "evidence": [
+        "frontend/src/pages/AdminPanelPage.tsx",
+        "frontend/src/pages/RewardsPage.tsx",
+        "frontend/src/components/rewards/RewardsStatus.tsx"
+      ]
+    },
+    {
+      "description": "Claim Free Treat button on the Rewards page allowing customers to self-redeem",
+      "reason": "REQ-7 states the backend should have a redeem function, and REQ-8 only asks to display rewards status. There is no requirement for a self-service claim button on the public Rewards page; the RewardsStatus component includes a 'Claim Free Treat' button with a claimFreeTreat mutation.",
+      "evidence": [
+        "frontend/src/components/rewards/RewardsStatus.tsx"
+      ]
+    },
+    {
+      "description": "Blob storage mixin included in the backend actor",
+      "reason": "The build request does not mention file/blob storage functionality. The backend includes 'include MixinStorage()' which is not related to any stated requirement.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/admin/MenuItemForm.tsx",
+    "frontend/src/components/admin/MenuManagement.tsx",
+    "frontend/src/components/admin/RecordPurchaseForm.tsx",
+    "frontend/src/components/admin/RewardsManagement.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/layout/Footer.tsx",
+    "frontend/src/components/layout/Navigation.tsx",
+    "frontend/src/components/menu/MenuItemCard.tsx",
+    "frontend/src/components/rewards/RewardsStatus.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AdminPanelPage.tsx",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/MenuPage.tsx",
+    "frontend/src/pages/RewardsPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

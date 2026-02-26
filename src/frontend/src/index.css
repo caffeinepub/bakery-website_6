@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.375rem;
+
+    /* Light Gaming palette - bright and energetic */
+    --background: 0.97 0.015 240;
+    --foreground: 0.15 0.03 265;
+
+    --card: 0.94 0.02 240;
+    --card-foreground: 0.15 0.03 265;
+
+    --popover: 0.96 0.02 240;
+    --popover-foreground: 0.15 0.03 265;
+
+    /* Primary: vibrant light blue */
+    --primary: 0.65 0.20 220;
+    --primary-foreground: 0.98 0.01 220;
+
+    /* Secondary: bright purple */
+    --secondary: 0.88 0.04 280;
+    --secondary-foreground: 0.30 0.08 280;
+
+    --muted: 0.90 0.03 270;
+    --muted-foreground: 0.45 0.06 265;
+
+    /* Accent: electric green */
+    --accent: 0.75 0.24 145;
+    --accent-foreground: 0.98 0.01 145;
+
+    --destructive: 0.60 0.28 25;
+    --destructive-foreground: 0.98 0.01 25;
+
+    --border: 0.82 0.05 260;
+    --input: 0.92 0.03 270;
+    --ring: 0.65 0.20 220;
+
+    /* Gaming-specific tokens - bright neon colors */
+    --neon-blue: 0.65 0.24 220;
+    --neon-purple: 0.60 0.26 285;
+    --neon-green: 0.72 0.26 145;
+    --light-void: 0.95 0.02 240;
+    --panel-bg: 0.93 0.025 250;
+
+    --chart-1: 0.65 0.24 220;
+    --chart-2: 0.60 0.26 285;
+    --chart-3: 0.72 0.26 145;
+    --chart-4: 0.68 0.22 200;
+    --chart-5: 0.62 0.24 310;
+
+    --sidebar: 0.95 0.02 250;
+    --sidebar-foreground: 0.15 0.03 265;
+    --sidebar-primary: 0.65 0.20 220;
+    --sidebar-primary-foreground: 0.98 0.01 220;
+    --sidebar-accent: 0.88 0.04 280;
+    --sidebar-accent-foreground: 0.30 0.08 280;
+    --sidebar-border: 0.85 0.04 260;
+    --sidebar-ring: 0.65 0.20 220;
+  }
+
+  .dark {
+    /* Darker mode for night gaming - still colorful */
+    --background: 0.18 0.03 265;
+    --foreground: 0.95 0.02 220;
+
+    --card: 0.22 0.04 265;
+    --card-foreground: 0.95 0.02 220;
+
+    --popover: 0.22 0.04 265;
+    --popover-foreground: 0.95 0.02 220;
+
+    --primary: 0.68 0.22 220;
+    --primary-foreground: 0.98 0.01 220;
+
+    --secondary: 0.25 0.07 280;
+    --secondary-foreground: 0.90 0.03 220;
+
+    --muted: 0.28 0.05 270;
+    --muted-foreground: 0.65 0.06 240;
+
+    --accent: 0.75 0.24 145;
+    --accent-foreground: 0.98 0.01 145;
+
+    --destructive: 0.60 0.28 25;
+    --destructive-foreground: 0.98 0.01 25;
+
+    --border: 0.32 0.06 270;
+    --input: 0.26 0.05 270;
+    --ring: 0.68 0.22 220;
+
+    --sidebar: 0.20 0.04 265;
+    --sidebar-foreground: 0.95 0.02 220;
+    --sidebar-primary: 0.68 0.22 220;
+    --sidebar-primary-foreground: 0.98 0.01 220;
+    --sidebar-accent: 0.25 0.07 280;
+    --sidebar-accent-foreground: 0.90 0.03 220;
+    --sidebar-border: 0.32 0.06 270;
+    --sidebar-ring: 0.68 0.22 220;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .neon-glow-blue {
+    box-shadow: 0 0 12px oklch(0.65 0.24 220 / 0.8), 0 0 32px oklch(0.65 0.24 220 / 0.4);
+  }
+  .neon-glow-purple {
+    box-shadow: 0 0 12px oklch(0.60 0.26 285 / 0.8), 0 0 32px oklch(0.60 0.26 285 / 0.4);
+  }
+  .neon-glow-green {
+    box-shadow: 0 0 12px oklch(0.72 0.26 145 / 0.8), 0 0 32px oklch(0.72 0.26 145 / 0.4);
+  }
+  .neon-border-blue {
+    border-color: oklch(0.65 0.24 220 / 0.7);
+    box-shadow: 0 0 8px oklch(0.65 0.24 220 / 0.5), inset 0 0 8px oklch(0.65 0.24 220 / 0.08);
+  }
+  .neon-border-green {
+    border-color: oklch(0.72 0.26 145 / 0.7);
+    box-shadow: 0 0 8px oklch(0.72 0.26 145 / 0.5), inset 0 0 8px oklch(0.72 0.26 145 / 0.08);
+  }
+  .neon-text-blue {
+    color: oklch(0.65 0.24 220);
+    text-shadow: 0 0 10px oklch(0.65 0.24 220 / 0.7);
+  }
+  .neon-text-green {
+    color: oklch(0.72 0.26 145);
+    text-shadow: 0 0 10px oklch(0.72 0.26 145 / 0.7);
+  }
+  .neon-text-purple {
+    color: oklch(0.60 0.26 285);
+    text-shadow: 0 0 10px oklch(0.60 0.26 285 / 0.7);
+  }
+  .scanline {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0 0 0 / 0.03) 2px,
+      oklch(0 0 0 / 0.03) 4px
+    );
+  }
+  .pixel-corners {
+    clip-path: polygon(
+      0 4px, 4px 4px, 4px 0,
+      calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
+      100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+      4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+    );
+  }
+}

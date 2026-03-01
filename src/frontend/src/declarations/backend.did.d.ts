@@ -34,6 +34,13 @@ export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
   { 'guest' : null };
+export type VoteChoice = { 'shadow' : null } |
+  { 'silver' : null };
+export interface VoteResults {
+  'totalVotes' : bigint,
+  'shadowVotes' : bigint,
+  'silverVotes' : bigint,
+}
 export interface _CaffeineStorageCreateCertificateResult {
   'method' : string,
   'blob_hash' : string,
@@ -65,6 +72,7 @@ export interface _SERVICE {
   'addMenuItem' : ActorMethod<[MenuItem], bigint>,
   'adjustCustomerRewards' : ActorMethod<[Principal, bigint, bigint], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'castVote' : ActorMethod<[VoteChoice], undefined>,
   'claimFreeTreat' : ActorMethod<[], undefined>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
@@ -74,6 +82,8 @@ export interface _SERVICE {
   'getMenuItemsByCategory' : ActorMethod<[Category], Array<MenuItem>>,
   'getRewardsConfig' : ActorMethod<[], RewardsConfig>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'getVoteResults' : ActorMethod<[], VoteResults>,
+  'hasVoted' : ActorMethod<[], boolean>,
   'isAdmin' : ActorMethod<[], boolean>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'recordPurchase' : ActorMethod<[Principal, bigint], undefined>,

@@ -1,26 +1,33 @@
-# 1 Up Bakery
+# 1 Up Bakery - Shadow vs Silver Vote
 
 ## Current State
-The bakery site has a menu, rewards program, admin panel, and an admin registration flow protected by code 73011. The backend's `registerAdmin` function is broken — it calls `AccessControl.assignRole` which requires the caller to already be an admin, causing a trap for new users. Additionally, `isAdmin` calls `getUserRole` which traps if the user has no role registered yet.
+A video game/pop-culture themed bakery site with:
+- Menu management (admin can add/edit/remove items)
+- Rewards program (every 5 items = free treat)
+- Admin panel protected by code 73011
+- Light blue/purple/green color theme
 
 ## Requested Changes (Diff)
 
 ### Add
-- Nothing new
+- A new "Vote" page accessible from the navigation bar
+- Two competing candidates: **Shadow the Hedgehog** vs **Silver the Hedgehog**
+- Shadow's items: Rocky Road Brownie (dessert) + Highway Smash Slushie (beverage)
+- Silver's items: Telekinetic Cake Pops (dessert) + Future's Soda Pop (beverage)
+- Each user (logged in) can cast one vote total for either Shadow or Silver
+- Live vote count / progress bar showing Shadow vs Silver totals
+- Backend: vote storage, castVote function (one vote per principal), getVoteResults query
 
 ### Modify
-- Fix `registerAdmin` so it directly inserts the caller into the `userRoles` map as `#admin` when the correct token is provided, bypassing the `assignRole` admin-only check
-- Fix `isAdmin` to safely check the role map without trapping for unregistered users
+- Navigation bar to include a "Vote" link
 
 ### Remove
-- Nothing
+- Nothing removed
 
 ## Implementation Plan
-1. Regenerate backend with corrected `registerAdmin` logic: directly set `accessControlState.userRoles.add(caller, #admin)` when token matches, without going through `AccessControl.assignRole`
-2. Fix `isAdmin` to use a safe switch on the role map rather than calling `AccessControl.isAdmin` which traps for unregistered users
-3. Redeploy
-
-## UX Notes
-- The admin code remains 73011
-- Multiple users can be registered as admin
-- The light blue/purple/green video game theme stays unchanged
+1. Add vote types and state to backend (VoteChoice, VoteResult, castVote, getVoteResults, hasVoted)
+2. Create VotePage.tsx with Shadow vs Silver themed voting UI
+3. Display each character's two items (dessert + drink) with character art/description
+4. Show live vote totals / progress bar after voting
+5. Wire backend castVote and getVoteResults to the frontend
+6. Add Vote nav link in Navigation.tsx

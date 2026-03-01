@@ -40,6 +40,10 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
+export const VoteChoice = IDL.Variant({
+  'shadow' : IDL.Null,
+  'silver' : IDL.Null,
+});
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const CustomerRewards = IDL.Record({
   'freeTreats' : IDL.Nat,
@@ -47,6 +51,11 @@ export const CustomerRewards = IDL.Record({
   'itemsPurchased' : IDL.Nat,
 });
 export const RewardsConfig = IDL.Record({ 'itemsPerFreeTreat' : IDL.Nat });
+export const VoteResults = IDL.Record({
+  'totalVotes' : IDL.Nat,
+  'shadowVotes' : IDL.Nat,
+  'silverVotes' : IDL.Nat,
+});
 
 export const idlService = IDL.Service({
   '_caffeineStorageBlobIsLive' : IDL.Func(
@@ -79,6 +88,7 @@ export const idlService = IDL.Service({
   'addMenuItem' : IDL.Func([MenuItem], [IDL.Nat], []),
   'adjustCustomerRewards' : IDL.Func([IDL.Principal, IDL.Nat, IDL.Nat], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'castVote' : IDL.Func([VoteChoice], [], []),
   'claimFreeTreat' : IDL.Func([], [], []),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
@@ -100,6 +110,8 @@ export const idlService = IDL.Service({
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
+  'getVoteResults' : IDL.Func([], [VoteResults], ['query']),
+  'hasVoted' : IDL.Func([], [IDL.Bool], ['query']),
   'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'recordPurchase' : IDL.Func([IDL.Principal, IDL.Nat], [], []),
@@ -145,6 +157,7 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
+  const VoteChoice = IDL.Variant({ 'shadow' : IDL.Null, 'silver' : IDL.Null });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const CustomerRewards = IDL.Record({
     'freeTreats' : IDL.Nat,
@@ -152,6 +165,11 @@ export const idlFactory = ({ IDL }) => {
     'itemsPurchased' : IDL.Nat,
   });
   const RewardsConfig = IDL.Record({ 'itemsPerFreeTreat' : IDL.Nat });
+  const VoteResults = IDL.Record({
+    'totalVotes' : IDL.Nat,
+    'shadowVotes' : IDL.Nat,
+    'silverVotes' : IDL.Nat,
+  });
   
   return IDL.Service({
     '_caffeineStorageBlobIsLive' : IDL.Func(
@@ -188,6 +206,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'castVote' : IDL.Func([VoteChoice], [], []),
     'claimFreeTreat' : IDL.Func([], [], []),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
@@ -209,6 +228,8 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
+    'getVoteResults' : IDL.Func([], [VoteResults], ['query']),
+    'hasVoted' : IDL.Func([], [IDL.Bool], ['query']),
     'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'recordPurchase' : IDL.Func([IDL.Principal, IDL.Nat], [], []),

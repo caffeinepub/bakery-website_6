@@ -1,7 +1,15 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useActor } from './useActor';
-import { type MenuItem, type UserProfile, type CustomerRewards, type RewardsConfig, Category } from '../backend';
-import { Principal } from '@dfinity/principal';
+import type { Principal } from "@dfinity/principal";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  Category,
+  type CustomerRewards,
+  type MenuItem,
+  type RewardsConfig,
+  type UserProfile,
+  VoteChoice,
+  type VoteResults,
+} from "../backend";
+import { useActor } from "./useActor";
 
 // ── User Profile ──────────────────────────────────────────────────────────────
 
@@ -9,9 +17,9 @@ export function useGetCallerUserProfile() {
   const { actor, isFetching: actorFetching } = useActor();
 
   const query = useQuery<UserProfile | null>({
-    queryKey: ['currentUserProfile'],
+    queryKey: ["currentUserProfile"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getCallerUserProfile();
     },
     enabled: !!actor && !actorFetching,
@@ -31,11 +39,11 @@ export function useSaveCallerUserProfile() {
 
   return useMutation({
     mutationFn: async (profile: UserProfile) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.saveCallerUserProfile(profile);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
+      queryClient.invalidateQueries({ queryKey: ["currentUserProfile"] });
     },
   });
 }
@@ -46,7 +54,7 @@ export function useIsAdmin() {
   const { actor, isFetching: actorFetching } = useActor();
 
   return useQuery<boolean>({
-    queryKey: ['isAdmin'],
+    queryKey: ["isAdmin"],
     queryFn: async () => {
       if (!actor) return false;
       return actor.isAdmin();
@@ -62,7 +70,7 @@ export function useGetMenuItems() {
   const { actor, isFetching: actorFetching } = useActor();
 
   return useQuery<MenuItem[]>({
-    queryKey: ['menuItems'],
+    queryKey: ["menuItems"],
     queryFn: async () => {
       if (!actor) return [];
       return actor.getMenuItems();
@@ -77,11 +85,11 @@ export function useAddMenuItem() {
 
   return useMutation({
     mutationFn: async (item: MenuItem) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.addMenuItem(item);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      queryClient.invalidateQueries({ queryKey: ["menuItems"] });
     },
   });
 }
@@ -92,11 +100,11 @@ export function useUpdateMenuItem() {
 
   return useMutation({
     mutationFn: async ({ id, item }: { id: bigint; item: MenuItem }) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.updateMenuItem(id, item);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      queryClient.invalidateQueries({ queryKey: ["menuItems"] });
     },
   });
 }
@@ -107,11 +115,11 @@ export function useRemoveMenuItem() {
 
   return useMutation({
     mutationFn: async (id: bigint) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.removeMenuItem(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['menuItems'] });
+      queryClient.invalidateQueries({ queryKey: ["menuItems"] });
     },
   });
 }
@@ -122,9 +130,9 @@ export function useGetCustomerRewards() {
   const { actor, isFetching: actorFetching } = useActor();
 
   return useQuery<CustomerRewards>({
-    queryKey: ['customerRewards'],
+    queryKey: ["customerRewards"],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getCustomerRewards();
     },
     enabled: !!actor && !actorFetching,
@@ -136,7 +144,7 @@ export function useGetRewardsConfig() {
   const { actor, isFetching: actorFetching } = useActor();
 
   return useQuery<RewardsConfig>({
-    queryKey: ['rewardsConfig'],
+    queryKey: ["rewardsConfig"],
     queryFn: async () => {
       if (!actor) return { itemsPerFreeTreat: BigInt(5) };
       return actor.getRewardsConfig();
@@ -151,11 +159,11 @@ export function useUpdateRewardsConfig() {
 
   return useMutation({
     mutationFn: async (newItemsPerFreeTreat: bigint) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.updateRewardsConfig(newItemsPerFreeTreat);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['rewardsConfig'] });
+      queryClient.invalidateQueries({ queryKey: ["rewardsConfig"] });
     },
   });
 }
@@ -166,11 +174,11 @@ export function useClaimFreeTreat() {
 
   return useMutation({
     mutationFn: async () => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.claimFreeTreat();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['customerRewards'] });
+      queryClient.invalidateQueries({ queryKey: ["customerRewards"] });
     },
   });
 }
@@ -180,24 +188,29 @@ export function useRecordPurchase() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ customer, itemsCount }: { customer: Principal; itemsCount: bigint }) => {
-      if (!actor) throw new Error('Actor not available');
+    mutationFn: async ({
+      customer,
+      itemsCount,
+    }: { customer: Principal; itemsCount: bigint }) => {
+      if (!actor) throw new Error("Actor not available");
       return actor.recordPurchase(customer, itemsCount);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['customerRewards'] });
-      queryClient.invalidateQueries({ queryKey: ['customerRewardsByPrincipal'] });
+      queryClient.invalidateQueries({ queryKey: ["customerRewards"] });
+      queryClient.invalidateQueries({
+        queryKey: ["customerRewardsByPrincipal"],
+      });
     },
   });
 }
 
 export function useGetCustomerRewardsByPrincipal() {
   const { actor } = useActor();
-  const queryClient = useQueryClient();
+  const _queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (customer: Principal) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.getCustomerRewardsByPrincipal(customer);
     },
   });
@@ -217,13 +230,64 @@ export function useAdjustCustomerRewards() {
       itemsPurchased: bigint;
       freeTreats: bigint;
     }) => {
-      if (!actor) throw new Error('Actor not available');
+      if (!actor) throw new Error("Actor not available");
       return actor.adjustCustomerRewards(customer, itemsPurchased, freeTreats);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['customerRewards'] });
+      queryClient.invalidateQueries({ queryKey: ["customerRewards"] });
     },
   });
 }
 
-export { Category };
+// ── Voting ────────────────────────────────────────────────────────────────────
+
+export function useGetVoteResults() {
+  const { actor, isFetching: actorFetching } = useActor();
+
+  return useQuery<VoteResults>({
+    queryKey: ["voteResults"],
+    queryFn: async () => {
+      if (!actor)
+        return {
+          shadowVotes: BigInt(0),
+          silverVotes: BigInt(0),
+          totalVotes: BigInt(0),
+        };
+      return actor.getVoteResults();
+    },
+    enabled: !!actor && !actorFetching,
+    refetchInterval: 10_000,
+  });
+}
+
+export function useHasVoted() {
+  const { actor, isFetching: actorFetching } = useActor();
+
+  return useQuery<boolean>({
+    queryKey: ["hasVoted"],
+    queryFn: async () => {
+      if (!actor) return false;
+      return actor.hasVoted();
+    },
+    enabled: !!actor && !actorFetching,
+    staleTime: 30_000,
+  });
+}
+
+export function useCastVote() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (choice: VoteChoice) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.castVote(choice);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["voteResults"] });
+      queryClient.invalidateQueries({ queryKey: ["hasVoted"] });
+    },
+  });
+}
+
+export { Category, VoteChoice };

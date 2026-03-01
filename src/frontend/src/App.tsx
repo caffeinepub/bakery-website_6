@@ -1,12 +1,19 @@
-import { RouterProvider, createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router';
-import { ThemeProvider } from 'next-themes';
-import { Toaster } from '@/components/ui/sonner';
-import Navigation from './components/layout/Navigation';
-import Footer from './components/layout/Footer';
-import HomePage from './pages/HomePage';
-import MenuPage from './pages/MenuPage';
-import RewardsPage from './pages/RewardsPage';
-import AdminPanelPage from './pages/AdminPanelPage';
+import { Toaster } from "@/components/ui/sonner";
+import {
+  Outlet,
+  RouterProvider,
+  createRootRoute,
+  createRoute,
+  createRouter,
+} from "@tanstack/react-router";
+import { ThemeProvider } from "next-themes";
+import Footer from "./components/layout/Footer";
+import Navigation from "./components/layout/Navigation";
+import AdminPanelPage from "./pages/AdminPanelPage";
+import HomePage from "./pages/HomePage";
+import MenuPage from "./pages/MenuPage";
+import RewardsPage from "./pages/RewardsPage";
+import VotePage from "./pages/VotePage";
 
 function Layout() {
   return (
@@ -24,33 +31,45 @@ const rootRoute = createRootRoute({ component: Layout });
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/',
+  path: "/",
   component: HomePage,
 });
 
 const menuRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/menu',
+  path: "/menu",
   component: MenuPage,
 });
 
 const rewardsRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/rewards',
+  path: "/rewards",
   component: RewardsPage,
 });
 
 const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/admin',
+  path: "/admin",
   component: AdminPanelPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, menuRoute, rewardsRoute, adminRoute]);
+const voteRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/vote",
+  component: VotePage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  menuRoute,
+  rewardsRoute,
+  adminRoute,
+  voteRoute,
+]);
 
 const router = createRouter({ routeTree });
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }

@@ -1,15 +1,15 @@
-import { Link } from '@tanstack/react-router';
-import { useState } from 'react';
-import { Menu, X, ShieldCheck } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
+import { Menu, ShieldCheck, Swords, X } from "lucide-react";
+import { useState } from "react";
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/menu', label: 'Menu' },
-    { to: '/rewards', label: 'XP Rewards' },
+    { to: "/", label: "Home" },
+    { to: "/menu", label: "Menu" },
+    { to: "/rewards", label: "XP Rewards" },
   ];
 
   return (
@@ -34,15 +34,32 @@ export default function Navigation() {
               key={link.to}
               to={link.to}
               className="px-4 py-2 rounded-md font-body text-sm font-semibold text-muted-foreground hover:text-primary hover:bg-secondary transition-colors tracking-wide"
-              activeProps={{ className: 'px-4 py-2 rounded-md font-body text-sm font-semibold text-primary bg-secondary tracking-wide neon-border-blue border' }}
+              activeProps={{
+                className:
+                  "px-4 py-2 rounded-md font-body text-sm font-semibold text-primary bg-secondary tracking-wide neon-border-blue border",
+              }}
             >
               {link.label}
             </Link>
           ))}
           <Link
+            to="/vote"
+            className="px-4 py-2 rounded-md font-body text-sm font-semibold text-muted-foreground hover:text-purple-500 hover:bg-secondary transition-colors flex items-center gap-1.5 tracking-wide"
+            activeProps={{
+              className:
+                "px-4 py-2 rounded-md font-body text-sm font-semibold text-purple-500 bg-secondary flex items-center gap-1.5 tracking-wide border border-purple-500/40",
+            }}
+          >
+            <Swords className="w-3.5 h-3.5" />
+            Vote
+          </Link>
+          <Link
             to="/admin"
             className="px-4 py-2 rounded-md font-body text-sm font-semibold text-muted-foreground hover:text-primary hover:bg-secondary transition-colors flex items-center gap-1.5 tracking-wide"
-            activeProps={{ className: 'px-4 py-2 rounded-md font-body text-sm font-semibold text-primary bg-secondary flex items-center gap-1.5 tracking-wide neon-border-blue border' }}
+            activeProps={{
+              className:
+                "px-4 py-2 rounded-md font-body text-sm font-semibold text-primary bg-secondary flex items-center gap-1.5 tracking-wide neon-border-blue border",
+            }}
           >
             <ShieldCheck className="w-3.5 h-3.5" />
             Admin
@@ -51,11 +68,16 @@ export default function Navigation() {
 
         {/* Mobile Toggle */}
         <button
+          type="button"
           className="md:hidden p-2 rounded-md text-muted-foreground hover:text-primary hover:bg-secondary transition-colors"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileOpen ? (
+            <X className="w-5 h-5" />
+          ) : (
+            <Menu className="w-5 h-5" />
+          )}
         </button>
       </div>
 
@@ -67,16 +89,34 @@ export default function Navigation() {
               key={link.to}
               to={link.to}
               className="px-3 py-2.5 rounded-md font-body text-sm font-semibold text-muted-foreground hover:text-primary hover:bg-secondary transition-colors tracking-wide"
-              activeProps={{ className: 'px-3 py-2.5 rounded-md font-body text-sm font-semibold text-primary bg-secondary tracking-wide' }}
+              activeProps={{
+                className:
+                  "px-3 py-2.5 rounded-md font-body text-sm font-semibold text-primary bg-secondary tracking-wide",
+              }}
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
             </Link>
           ))}
           <Link
+            to="/vote"
+            className="px-3 py-2.5 rounded-md font-body text-sm font-semibold text-muted-foreground hover:text-purple-500 hover:bg-secondary transition-colors flex items-center gap-1.5 tracking-wide"
+            activeProps={{
+              className:
+                "px-3 py-2.5 rounded-md font-body text-sm font-semibold text-purple-500 bg-secondary flex items-center gap-1.5 tracking-wide",
+            }}
+            onClick={() => setMobileOpen(false)}
+          >
+            <Swords className="w-3.5 h-3.5" />
+            Vote
+          </Link>
+          <Link
             to="/admin"
             className="px-3 py-2.5 rounded-md font-body text-sm font-semibold text-muted-foreground hover:text-primary hover:bg-secondary transition-colors flex items-center gap-1.5 tracking-wide"
-            activeProps={{ className: 'px-3 py-2.5 rounded-md font-body text-sm font-semibold text-primary bg-secondary flex items-center gap-1.5 tracking-wide' }}
+            activeProps={{
+              className:
+                "px-3 py-2.5 rounded-md font-body text-sm font-semibold text-primary bg-secondary flex items-center gap-1.5 tracking-wide",
+            }}
             onClick={() => setMobileOpen(false)}
           >
             <ShieldCheck className="w-3.5 h-3.5" />

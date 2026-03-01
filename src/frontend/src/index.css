@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -19,48 +19,56 @@
     --popover-foreground: 0.15 0.03 265;
 
     /* Primary: vibrant light blue */
-    --primary: 0.65 0.20 220;
+    --primary: 0.65 0.2 220;
     --primary-foreground: 0.98 0.01 220;
 
     /* Secondary: bright purple */
     --secondary: 0.88 0.04 280;
-    --secondary-foreground: 0.30 0.08 280;
+    --secondary-foreground: 0.3 0.08 280;
 
-    --muted: 0.90 0.03 270;
+    --muted: 0.9 0.03 270;
     --muted-foreground: 0.45 0.06 265;
 
     /* Accent: electric green */
     --accent: 0.75 0.24 145;
     --accent-foreground: 0.98 0.01 145;
 
-    --destructive: 0.60 0.28 25;
+    --destructive: 0.6 0.28 25;
     --destructive-foreground: 0.98 0.01 25;
 
     --border: 0.82 0.05 260;
     --input: 0.92 0.03 270;
-    --ring: 0.65 0.20 220;
+    --ring: 0.65 0.2 220;
 
     /* Gaming-specific tokens - bright neon colors */
     --neon-blue: 0.65 0.24 220;
-    --neon-purple: 0.60 0.26 285;
+    --neon-purple: 0.6 0.26 285;
     --neon-green: 0.72 0.26 145;
     --light-void: 0.95 0.02 240;
     --panel-bg: 0.93 0.025 250;
 
+    /* Vote page tokens */
+    --shadow-dark: 0.18 0.06 15;
+    --shadow-red: 0.52 0.25 25;
+    --shadow-deep: 0.12 0.04 300;
+    --silver-light: 0.92 0.04 220;
+    --silver-blue: 0.68 0.22 210;
+    --silver-glow: 0.82 0.18 200;
+
     --chart-1: 0.65 0.24 220;
-    --chart-2: 0.60 0.26 285;
+    --chart-2: 0.6 0.26 285;
     --chart-3: 0.72 0.26 145;
     --chart-4: 0.68 0.22 200;
     --chart-5: 0.62 0.24 310;
 
     --sidebar: 0.95 0.02 250;
     --sidebar-foreground: 0.15 0.03 265;
-    --sidebar-primary: 0.65 0.20 220;
+    --sidebar-primary: 0.65 0.2 220;
     --sidebar-primary-foreground: 0.98 0.01 220;
     --sidebar-accent: 0.88 0.04 280;
-    --sidebar-accent-foreground: 0.30 0.08 280;
+    --sidebar-accent-foreground: 0.3 0.08 280;
     --sidebar-border: 0.85 0.04 260;
-    --sidebar-ring: 0.65 0.20 220;
+    --sidebar-ring: 0.65 0.2 220;
   }
 
   .dark {
@@ -78,7 +86,7 @@
     --primary-foreground: 0.98 0.01 220;
 
     --secondary: 0.25 0.07 280;
-    --secondary-foreground: 0.90 0.03 220;
+    --secondary-foreground: 0.9 0.03 220;
 
     --muted: 0.28 0.05 270;
     --muted-foreground: 0.65 0.06 240;
@@ -86,19 +94,19 @@
     --accent: 0.75 0.24 145;
     --accent-foreground: 0.98 0.01 145;
 
-    --destructive: 0.60 0.28 25;
+    --destructive: 0.6 0.28 25;
     --destructive-foreground: 0.98 0.01 25;
 
     --border: 0.32 0.06 270;
     --input: 0.26 0.05 270;
     --ring: 0.68 0.22 220;
 
-    --sidebar: 0.20 0.04 265;
+    --sidebar: 0.2 0.04 265;
     --sidebar-foreground: 0.95 0.02 220;
     --sidebar-primary: 0.68 0.22 220;
     --sidebar-primary-foreground: 0.98 0.01 220;
     --sidebar-accent: 0.25 0.07 280;
-    --sidebar-accent-foreground: 0.90 0.03 220;
+    --sidebar-accent-foreground: 0.9 0.03 220;
     --sidebar-border: 0.32 0.06 270;
     --sidebar-ring: 0.68 0.22 220;
   }
@@ -111,28 +119,38 @@
     @apply bg-background text-foreground font-body;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-display;
   }
 }
 
 @layer utilities {
   .neon-glow-blue {
-    box-shadow: 0 0 12px oklch(0.65 0.24 220 / 0.8), 0 0 32px oklch(0.65 0.24 220 / 0.4);
+    box-shadow: 0 0 12px oklch(0.65 0.24 220 / 0.8), 0 0 32px
+      oklch(0.65 0.24 220 / 0.4);
   }
   .neon-glow-purple {
-    box-shadow: 0 0 12px oklch(0.60 0.26 285 / 0.8), 0 0 32px oklch(0.60 0.26 285 / 0.4);
+    box-shadow: 0 0 12px oklch(0.6 0.26 285 / 0.8), 0 0 32px
+      oklch(0.6 0.26 285 / 0.4);
   }
   .neon-glow-green {
-    box-shadow: 0 0 12px oklch(0.72 0.26 145 / 0.8), 0 0 32px oklch(0.72 0.26 145 / 0.4);
+    box-shadow: 0 0 12px oklch(0.72 0.26 145 / 0.8), 0 0 32px
+      oklch(0.72 0.26 145 / 0.4);
   }
   .neon-border-blue {
     border-color: oklch(0.65 0.24 220 / 0.7);
-    box-shadow: 0 0 8px oklch(0.65 0.24 220 / 0.5), inset 0 0 8px oklch(0.65 0.24 220 / 0.08);
+    box-shadow: 0 0 8px oklch(0.65 0.24 220 / 0.5), inset 0 0 8px
+      oklch(0.65 0.24 220 / 0.08);
   }
   .neon-border-green {
     border-color: oklch(0.72 0.26 145 / 0.7);
-    box-shadow: 0 0 8px oklch(0.72 0.26 145 / 0.5), inset 0 0 8px oklch(0.72 0.26 145 / 0.08);
+    box-shadow: 0 0 8px oklch(0.72 0.26 145 / 0.5), inset 0 0 8px
+      oklch(0.72 0.26 145 / 0.08);
   }
   .neon-text-blue {
     color: oklch(0.65 0.24 220);
@@ -143,9 +161,69 @@
     text-shadow: 0 0 10px oklch(0.72 0.26 145 / 0.7);
   }
   .neon-text-purple {
-    color: oklch(0.60 0.26 285);
-    text-shadow: 0 0 10px oklch(0.60 0.26 285 / 0.7);
+    color: oklch(0.6 0.26 285);
+    text-shadow: 0 0 10px oklch(0.6 0.26 285 / 0.7);
   }
+  .neon-glow-red {
+    box-shadow: 0 0 12px oklch(0.52 0.25 25 / 0.8), 0 0 32px
+      oklch(0.52 0.25 25 / 0.4);
+  }
+  .neon-glow-silver {
+    box-shadow: 0 0 12px oklch(0.82 0.18 200 / 0.8), 0 0 40px
+      oklch(0.82 0.18 200 / 0.4);
+  }
+  .neon-border-red {
+    border-color: oklch(0.52 0.25 25 / 0.7);
+    box-shadow: 0 0 8px oklch(0.52 0.25 25 / 0.5), inset 0 0 8px
+      oklch(0.52 0.25 25 / 0.08);
+  }
+  .neon-border-silver {
+    border-color: oklch(0.82 0.18 200 / 0.7);
+    box-shadow: 0 0 8px oklch(0.82 0.18 200 / 0.5), inset 0 0 8px
+      oklch(0.82 0.18 200 / 0.08);
+  }
+  .neon-text-red {
+    color: oklch(0.58 0.25 25);
+    text-shadow: 0 0 10px oklch(0.52 0.25 25 / 0.7);
+  }
+  .neon-text-silver {
+    color: oklch(0.72 0.16 210);
+    text-shadow: 0 0 10px oklch(0.82 0.18 200 / 0.7);
+  }
+  .shadow-card-bg {
+    background: linear-gradient(
+      135deg,
+      oklch(0.14 0.04 290) 0%,
+      oklch(0.18 0.06 15 / 0.6) 50%,
+      oklch(0.12 0.04 300) 100%
+    );
+  }
+  .silver-card-bg {
+    background: linear-gradient(
+      135deg,
+      oklch(0.88 0.06 230) 0%,
+      oklch(0.92 0.06 210) 50%,
+      oklch(0.85 0.1 205) 100%
+    );
+  }
+  .vote-arena-bg {
+    background: radial-gradient(
+        ellipse at 20% 50%,
+        oklch(0.52 0.25 25 / 0.12) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse at 80% 50%,
+        oklch(0.68 0.22 210 / 0.12) 0%,
+        transparent 55%
+      ),
+      linear-gradient(
+        180deg,
+        oklch(0.12 0.04 270) 0%,
+        oklch(0.16 0.04 260) 100%
+      );
+  }
+
   .scanline {
     background: repeating-linear-gradient(
       0deg,
@@ -157,10 +235,18 @@
   }
   .pixel-corners {
     clip-path: polygon(
-      0 4px, 4px 4px, 4px 0,
-      calc(100% - 4px) 0, calc(100% - 4px) 4px, 100% 4px,
-      100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
-      4px 100%, 4px calc(100% - 4px), 0 calc(100% - 4px)
+      0 4px,
+      4px 4px,
+      4px 0,
+      calc(100% - 4px) 0,
+      calc(100% - 4px) 4px,
+      100% 4px,
+      100% calc(100% - 4px),
+      calc(100% - 4px) calc(100% - 4px),
+      calc(100% - 4px) 100%,
+      4px 100%,
+      4px calc(100% - 4px),
+      0 calc(100% - 4px)
     );
   }
 }

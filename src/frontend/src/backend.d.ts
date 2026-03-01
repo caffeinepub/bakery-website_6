@@ -14,6 +14,11 @@ export class ExternalBlob {
     static fromBytes(blob: Uint8Array<ArrayBuffer>): ExternalBlob;
     withUploadProgress(onProgress: (percentage: number) => void): ExternalBlob;
 }
+export interface VoteResults {
+    totalVotes: bigint;
+    shadowVotes: bigint;
+    silverVotes: bigint;
+}
 export interface MenuItem {
     id: bigint;
     name: string;
@@ -45,10 +50,15 @@ export enum UserRole {
     user = "user",
     guest = "guest"
 }
+export enum VoteChoice {
+    shadow = "shadow",
+    silver = "silver"
+}
 export interface backendInterface {
     addMenuItem(item: MenuItem): Promise<bigint>;
     adjustCustomerRewards(customer: Principal, itemsPurchased: bigint, freeTreats: bigint): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    castVote(choice: VoteChoice): Promise<void>;
     claimFreeTreat(): Promise<void>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
@@ -58,6 +68,8 @@ export interface backendInterface {
     getMenuItemsByCategory(category: Category): Promise<Array<MenuItem>>;
     getRewardsConfig(): Promise<RewardsConfig>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    getVoteResults(): Promise<VoteResults>;
+    hasVoted(): Promise<boolean>;
     isAdmin(): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     recordPurchase(customer: Principal, itemsCount: bigint): Promise<void>;

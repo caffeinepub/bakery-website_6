@@ -1,38 +1,47 @@
-import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import MenuManagement from '../components/admin/MenuManagement';
-import RewardsManagement from '../components/admin/RewardsManagement';
-import { ShieldCheck, UtensilsCrossed, Trophy, KeyRound, AlertCircle, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useActor } from '@/hooks/useActor';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useActor } from "@/hooks/useActor";
+import {
+  AlertCircle,
+  KeyRound,
+  Loader2,
+  ShieldCheck,
+  Trophy,
+  UtensilsCrossed,
+} from "lucide-react";
+import { useState } from "react";
+import MenuManagement from "../components/admin/MenuManagement";
+import RewardsManagement from "../components/admin/RewardsManagement";
 
-const ADMIN_PASSCODE = '73011';
+const ADMIN_PASSCODE = "73011";
 
 export default function AdminPanelPage() {
   const { actor, isFetching: actorFetching } = useActor();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passcode, setPasscode] = useState('');
-  const [error, setError] = useState('');
+  const [passcode, setPasscode] = useState("");
+  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       // Client-side passcode check first
       if (passcode !== ADMIN_PASSCODE) {
-        setError('Incorrect passcode. Access denied.');
-        setPasscode('');
+        setError("Incorrect passcode. Access denied.");
+        setPasscode("");
         return;
       }
 
       // Wait for actor to be available
       if (!actor) {
-        setError('Backend connection unavailable. Please wait a moment and try again.');
+        setError(
+          "Backend connection unavailable. Please wait a moment and try again.",
+        );
         return;
       }
 
@@ -42,20 +51,22 @@ export default function AdminPanelPage() {
       // Confirm the registration took effect by calling isAdmin()
       const confirmed = await actor.isAdmin();
       if (!confirmed) {
-        setError('Registration completed but admin status could not be confirmed. Please try again.');
+        setError(
+          "Registration completed but admin status could not be confirmed. Please try again.",
+        );
         return;
       }
 
       setIsAuthenticated(true);
     } catch (err) {
-      console.error('Admin registration failed:', err);
+      console.error("Admin registration failed:", err);
       const message = err instanceof Error ? err.message : String(err);
-      if (message.includes('Invalid token') || message.includes('token')) {
-        setError('Incorrect passcode. Access denied.');
+      if (message.includes("Invalid token") || message.includes("token")) {
+        setError("Incorrect passcode. Access denied.");
       } else {
         setError(`Registration failed: ${message}`);
       }
-      setPasscode('');
+      setPasscode("");
     } finally {
       setIsSubmitting(false);
     }
@@ -89,7 +100,10 @@ export default function AdminPanelPage() {
             /* Form */
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="passcode" className="font-body font-semibold tracking-wide text-foreground">
+                <Label
+                  htmlFor="passcode"
+                  className="font-body font-semibold tracking-wide text-foreground"
+                >
                   Passcode
                 </Label>
                 <Input
@@ -100,7 +114,7 @@ export default function AdminPanelPage() {
                   value={passcode}
                   onChange={(e) => {
                     setPasscode(e.target.value);
-                    setError('');
+                    setError("");
                   }}
                   className="font-body text-center text-lg tracking-widest bg-secondary border-border focus:border-primary"
                   autoFocus
@@ -126,7 +140,9 @@ export default function AdminPanelPage() {
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Verifying…
                   </span>
-                ) : '▶ Enter Admin Panel'}
+                ) : (
+                  "▶ Enter Admin Panel"
+                )}
               </Button>
             </form>
           )}
@@ -143,18 +159,28 @@ export default function AdminPanelPage() {
           <ShieldCheck className="w-6 h-6 text-primary" />
         </div>
         <div>
-          <h1 className="font-display text-3xl font-bold text-foreground tracking-wide">Admin Panel</h1>
-          <p className="font-body text-sm text-muted-foreground font-medium">Welcome back, Admin 🎮</p>
+          <h1 className="font-display text-3xl font-bold text-foreground tracking-wide">
+            Admin Panel
+          </h1>
+          <p className="font-body text-sm text-muted-foreground font-medium">
+            Welcome back, Admin 🎮
+          </p>
         </div>
       </div>
 
       <Tabs defaultValue="menu" className="w-full">
         <TabsList className="mb-6 font-body bg-secondary border border-border">
-          <TabsTrigger value="menu" className="gap-1.5 font-body font-semibold tracking-wide">
+          <TabsTrigger
+            value="menu"
+            className="gap-1.5 font-body font-semibold tracking-wide"
+          >
             <UtensilsCrossed className="w-4 h-4" />
             Item Shop
           </TabsTrigger>
-          <TabsTrigger value="rewards" className="gap-1.5 font-body font-semibold tracking-wide">
+          <TabsTrigger
+            value="rewards"
+            className="gap-1.5 font-body font-semibold tracking-wide"
+          >
             <Trophy className="w-4 h-4" />
             XP Management
           </TabsTrigger>

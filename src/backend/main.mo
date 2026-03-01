@@ -78,6 +78,17 @@ actor {
     };
   };
 
+  public type VoteChoice = {
+    #shadow;
+    #silver;
+  };
+
+  public type VoteResults = {
+    shadowVotes : Nat;
+    silverVotes : Nat;
+    totalVotes : Nat;
+  };
+
   var rewardsConfig : RewardsConfig = {
     itemsPerFreeTreat = 5;
   };
@@ -85,6 +96,7 @@ actor {
   let menuItems = Map.empty<Nat, MenuItem>();
   let customerRewards = Map.empty<Principal, CustomerRewards>();
   let userProfiles = Map.empty<Principal, UserProfile>();
+  let votes = Map.empty<Principal, VoteChoice>();
 
   let globalAdminToken = "73011";
   var nextMenuItemId = 1;
@@ -302,6 +314,51 @@ actor {
       case (null) { false };
       case (?#admin) { true };
       case (_) { false };
+    };
+  };
+
+  // Voting System Functions
+  public shared ({ caller }) func castVote(choice : VoteChoice) : async () {
+    if (caller.isAnonymous()) {
+      Runtime.trap("Anonymous users cannot vote");
+    };
+
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can vote");
+    };
+
+    switch (votes.get(caller)) {
+      case (null) {
+        votes.add(caller, choice);
+      };
+      case (_existingVote) {
+        Runtime.trap("Already voted");
+      };
+    };
+  };
+
+  public query ({ caller }) func hasVoted() : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only authenticated users can check vote status");
+    };
+    votes.containsKey(caller);
+  };
+
+  public query func getVoteResults() : async VoteResults {
+    var shadowVotes = 0;
+    var silverVotes = 0;
+
+    for ((_, vote) in votes.entries()) {
+      switch (vote) {
+        case (#shadow) { shadowVotes += 1 };
+        case (#silver) { silverVotes += 1 };
+      };
+    };
+
+    {
+      shadowVotes;
+      silverVotes;
+      totalVotes = shadowVotes + silverVotes;
     };
   };
 };

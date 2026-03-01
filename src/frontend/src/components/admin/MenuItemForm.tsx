@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { type MenuItem, Category } from '../../backend';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useAddMenuItem, useUpdateMenuItem } from '../../hooks/useQueries';
-import { toast } from 'sonner';
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Category, type MenuItem } from "../../backend";
+import { useAddMenuItem, useUpdateMenuItem } from "../../hooks/useQueries";
 
 interface MenuItemFormProps {
   item?: MenuItem | null;
@@ -21,16 +21,16 @@ interface MenuItemFormProps {
 }
 
 const categoryOptions = [
-  { value: Category.breads, label: 'Breads' },
-  { value: Category.pastries, label: 'Pastries' },
-  { value: Category.cakes, label: 'Cakes' },
-  { value: Category.drinks, label: 'Drinks' },
+  { value: Category.breads, label: "Breads" },
+  { value: Category.pastries, label: "Pastries" },
+  { value: Category.cakes, label: "Cakes" },
+  { value: Category.drinks, label: "Drinks" },
 ];
 
 export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [priceStr, setPriceStr] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [priceStr, setPriceStr] = useState("");
   const [category, setCategory] = useState<Category>(Category.breads);
   const [available, setAvailable] = useState(true);
 
@@ -47,9 +47,9 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
       setCategory(item.category as Category);
       setAvailable(item.available);
     } else {
-      setName('');
-      setDescription('');
-      setPriceStr('');
+      setName("");
+      setDescription("");
+      setPriceStr("");
       setCategory(Category.breads);
       setAvailable(true);
     }
@@ -60,16 +60,16 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
 
     // Validate inputs
     if (!name.trim()) {
-      toast.error('Please enter a name');
+      toast.error("Please enter a name");
       return;
     }
 
-    if (!priceStr || parseFloat(priceStr) < 0) {
-      toast.error('Please enter a valid price');
+    if (!priceStr || Number.parseFloat(priceStr) < 0) {
+      toast.error("Please enter a valid price");
       return;
     }
 
-    const priceInCents = BigInt(Math.round(parseFloat(priceStr) * 100));
+    const priceInCents = BigInt(Math.round(Number.parseFloat(priceStr) * 100));
 
     // Build item without the optional image field (no URL-based images in this version)
     const menuItem: MenuItem = {
@@ -92,8 +92,10 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
       }
       onClose();
     } catch (error) {
-      console.error('Failed to save menu item:', error);
-      toast.error(`Failed to save item: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      console.error("Failed to save menu item:", error);
+      toast.error(
+        `Failed to save item: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
     }
   };
 
@@ -103,7 +105,12 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <Label htmlFor="item-name" className="font-body font-semibold tracking-wide">Name *</Label>
+          <Label
+            htmlFor="item-name"
+            className="font-body font-semibold tracking-wide"
+          >
+            Name *
+          </Label>
           <Input
             id="item-name"
             value={name}
@@ -114,7 +121,12 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
           />
         </div>
         <div className="space-y-1.5">
-          <Label htmlFor="item-price" className="font-body font-semibold tracking-wide">Price (USD) *</Label>
+          <Label
+            htmlFor="item-price"
+            className="font-body font-semibold tracking-wide"
+          >
+            Price (USD) *
+          </Label>
           <Input
             id="item-price"
             type="number"
@@ -130,7 +142,12 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="item-description" className="font-body font-semibold tracking-wide">Description</Label>
+        <Label
+          htmlFor="item-description"
+          className="font-body font-semibold tracking-wide"
+        >
+          Description
+        </Label>
         <Textarea
           id="item-description"
           value={description}
@@ -142,14 +159,23 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
       </div>
 
       <div className="space-y-1.5">
-        <Label className="font-body font-semibold tracking-wide">Category *</Label>
-        <Select value={category} onValueChange={(v) => setCategory(v as Category)}>
+        <Label className="font-body font-semibold tracking-wide">
+          Category *
+        </Label>
+        <Select
+          value={category}
+          onValueChange={(v) => setCategory(v as Category)}
+        >
           <SelectTrigger className="font-body bg-secondary border-border">
             <SelectValue placeholder="Select category" />
           </SelectTrigger>
           <SelectContent className="bg-card border-border">
             {categoryOptions.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value} className="font-body">
+              <SelectItem
+                key={opt.value}
+                value={opt.value}
+                className="font-body"
+              >
                 {opt.label}
               </SelectItem>
             ))}
@@ -163,16 +189,28 @@ export default function MenuItemForm({ item, onClose }: MenuItemFormProps) {
           checked={available}
           onCheckedChange={setAvailable}
         />
-        <Label htmlFor="item-available" className="font-body font-semibold cursor-pointer tracking-wide">
+        <Label
+          htmlFor="item-available"
+          className="font-body font-semibold cursor-pointer tracking-wide"
+        >
           Active in shop
         </Label>
       </div>
 
       <div className="flex gap-3 pt-2">
-        <Button type="submit" disabled={isPending} className="flex-1 font-body font-bold neon-glow-blue tracking-wide">
-          {isPending ? 'Saving…' : isEditing ? 'Update Item' : 'Add Item'}
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="flex-1 font-body font-bold neon-glow-blue tracking-wide"
+        >
+          {isPending ? "Saving…" : isEditing ? "Update Item" : "Add Item"}
         </Button>
-        <Button type="button" variant="outline" onClick={onClose} className="font-body font-semibold">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onClose}
+          className="font-body font-semibold"
+        >
           Cancel
         </Button>
       </div>
